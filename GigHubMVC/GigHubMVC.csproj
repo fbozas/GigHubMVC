@@ -177,8 +177,18 @@
     <Compile Include="Migrations\202206141545357_Initial.Designer.cs">
       <DependentUpon>202206141545357_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206141611459_AddGigsAndGenresTable.cs" />
+    <Compile Include="Migrations\202206141611459_AddGigsAndGenresTable.Designer.cs">
+      <DependentUpon>202206141611459_AddGigsAndGenresTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206141627106_AddNewConventionsOnGigsAndGenres.cs" />
+    <Compile Include="Migrations\202206141627106_AddNewConventionsOnGigsAndGenres.Designer.cs">
+      <DependentUpon>202206141627106_AddNewConventionsOnGigsAndGenres.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -260,6 +270,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202206141545357_Initial.resx">
       <DependentUpon>202206141545357_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206141611459_AddGigsAndGenresTable.resx">
+      <DependentUpon>202206141611459_AddGigsAndGenresTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206141627106_AddNewConventionsOnGigsAndGenres.resx">
+      <DependentUpon>202206141627106_AddNewConventionsOnGigsAndGenres.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
