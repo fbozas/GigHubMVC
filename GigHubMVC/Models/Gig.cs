@@ -28,5 +28,6 @@ namespace GigHubMVC.Models
         [Required]
         [ForeignKey("Genre")]
         public byte GenreId { get; set; }
+
     }
 }
