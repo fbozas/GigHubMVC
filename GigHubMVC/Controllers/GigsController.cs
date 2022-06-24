@@ -30,7 +30,13 @@ namespace GigHubMVC.Controllers
                 .Include(g => g.Genre)
                 .ToList();
 
-            return View(gigs);
+            var viewModel = new GigsViewModel()
+            {
+                UpcomingGigs = gigs,
+                ShowActions = User.Identity.IsAuthenticated
+            };
+
+            return View("Gigs",viewModel);
         }
         // GET: Gigs
         [Authorize]
