@@ -24,7 +24,10 @@ namespace GigHubMVC.Controllers
         {
             var userId = User.Identity.GetUserId();
             var gigs = _context.Gigs
-                .Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now)
+                .Where(
+                g => g.ArtistId == userId && 
+                g.DateTime > DateTime.Now 
+                && !g.IsCancelled)
                 .Include(g => g.Genre)
                 .ToList();
 
