@@ -19,6 +19,10 @@
             <div class="details">
                 <span class="artist">
                     @gig.Artist.Name
+                    @if (gig.IsCancelled)
+                    {
+                        <span class="label label-warning">Cancelled</span>
+                    }
                     @if (Model.ShowActions)
                     {
                         <button data-user-id="@gig.ArtistId"
