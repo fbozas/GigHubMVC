@@ -157,3 +157,7 @@ span.field-validation-error{
 .voffset3 {margin-top: 20px}
 .voffset4 {margin-top: 40px}
 .voffset5 {margin-top: 80px}
+
+#searchGigs {
+    width: 300px;
+}
