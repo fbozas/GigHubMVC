@@ -41,13 +41,19 @@ namespace GigHubMVC.Controllers
                 .ToList()
                 .ToLookup(a => a.GigId);
 
+            var followings = _context.Followings
+                .Where(a => a.FollowerId == userId)
+                .ToList()
+                .ToLookup(a => a.FolloweeId);
+
             var viewModel = new GigsViewModel()
             {
                 UpcomingGigs = upcomingGigs,
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Upcoming Gigs",
                 SearchTerm = query,
-                Attendances = attendances
+                Attendances = attendances,
+                Followings = followings
             };
 
             return View("Gigs",viewModel);

@@ -41,8 +41,10 @@
                     @if (Model.ShowActions)
                     {
                         <button data-user-id="@gig.ArtistId"
-                                class="btn btn-link btn-sm js-toggle-follow">
-                            Follow
+                                class="btn btn-link 
+                                @(Model.Followings.Contains(gig.ArtistId) ? "following" : "follow")
+                                btn-sm js-toggle-follow">
+                                @(Model.Followings.Contains(gig.ArtistId) ? "following" : "follow")
                         </button>
                     }
                 </span>
@@ -54,7 +56,7 @@
 
                     <button data-gig-id="@gig.Id"
                             class="btn @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default")  btn-sm pull-right js-toggle-attendance">
-                        Going?
+                            @(Model.Attendances.Contains(gig.Id) ? "Going" : "Going?")
                     </button>
                 }
             </div>
@@ -99,11 +101,25 @@
 
             $(".js-toggle-follow").click(function (e) {
                 var button = $(e.target);
-                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                    .done(function () {
-                        button.text("Following");
-                    })
-                    .fail("Something failed");
+                if (button.hasClass("follow")) {
+
+                    $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                        .done(function () {
+                            button.text("Following");
+                            location.reload();
+                        })
+                        .fail("Something failed");
+                } else {
+                    $.ajax({
+                        url: "/api/followings/" + button.attr("data-user-id"),
+                        method: "DELETE"
+                    }).done(function () {
+                        button.text("Follow");
+                        location.reload();
+                    }).fail(function () {
+                        alert("Something failed!");
+                    });
+                }
             });
         });
     </script>
