@@ -13,8 +13,6 @@ namespace GigHubMVC.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        [Required]
-        [StringLength(100)]
         public string Name { get; set; }
 
         public ICollection<Following> Followers { get; set; }
@@ -53,16 +51,10 @@ namespace GigHubMVC.Models
             //    .WillCascadeOnDelete(false); (Look at GigConfiguration the last rule)
 
             modelBuilder.Configurations.Add(new GigConfiguration());
-
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.Followers)
-                .WithRequired(f => f.Followee)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.Followees)
-                .WithRequired(f => f.Follower)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
+            modelBuilder.Configurations.Add(new AttendanceConfiguration());
+            modelBuilder.Configurations.Add(new FollowingConfiguration());
+            modelBuilder.Configurations.Add(new GenreConfiguration());         
 
             base.OnModelCreating(modelBuilder);
         }

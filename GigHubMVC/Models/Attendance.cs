@@ -9,11 +9,7 @@ namespace GigHubMVC.Models
 {
     public class Attendance
     {
-        [Key]
-        [Column(Order = 1)]
         public int GigId { get; set; }
-        [Key]
-        [Column(Order = 2)]
         public string AttendeeId { get; set; }
 
         public Gig Gig { get; set; }

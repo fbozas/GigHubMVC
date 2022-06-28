@@ -177,6 +177,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Configurations\ApplicationUserConfiguration.cs" />
+    <Compile Include="Configurations\AttendanceConfiguration.cs" />
+    <Compile Include="Configurations\FollowingConfiguration.cs" />
+    <Compile Include="Configurations\GenreConfiguration.cs" />
     <Compile Include="Configurations\GigConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\GigsController.cs" />
@@ -226,6 +230,10 @@
     <Compile Include="Migrations\202206271522457_AddIsCancelledToGig.cs" />
     <Compile Include="Migrations\202206271522457_AddIsCancelledToGig.Designer.cs">
       <DependentUpon>202206271522457_AddIsCancelledToGig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206281701533_foo.cs" />
+    <Compile Include="Migrations\202206281701533_foo.Designer.cs">
+      <DependentUpon>202206281701533_foo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -347,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206271522457_AddIsCancelledToGig.resx">
       <DependentUpon>202206271522457_AddIsCancelledToGig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206281701533_foo.resx">
+      <DependentUpon>202206281701533_foo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
