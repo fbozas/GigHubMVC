@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using GigHubMVC.Configurations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -46,10 +47,12 @@ namespace GigHubMVC.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Attendance>()
-                .HasRequired(a => a.Gig)
-                .WithMany()
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Attendance>()
+            //    .HasRequired(a => a.Gig)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false); (Look at GigConfiguration the last rule)
+
+            modelBuilder.Configurations.Add(new GigConfiguration());
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.Followers)
