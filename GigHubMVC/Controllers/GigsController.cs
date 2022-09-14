@@ -15,17 +15,11 @@ namespace GigHubMVC.Controllers
     public class GigsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly AttendanceRepository _attendanceRepository;
-        private readonly FollowingRepository _followingRepository;
-        private readonly GenreRepository _genreRepository;
         private readonly UnitOfWork _unitOfWork;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
-            _attendanceRepository = new AttendanceRepository(_context);
-            _followingRepository = new FollowingRepository(_context);
-            _genreRepository = new GenreRepository(_context);
             _unitOfWork = new UnitOfWork(_context);
         }
 
@@ -53,11 +47,11 @@ namespace GigHubMVC.Controllers
 
                 //viewModel.IsAttending = _context.Attendances
                 //    .Any(a => a.GigId == gig.Id && a.AttendeeId == userId);
-                viewModel.IsAttending = _attendanceRepository.GetAttendance(gig.Id, userId) != null;
+                viewModel.IsAttending = _unitOfWork.Attendances.GetAttendance(gig.Id, userId) != null;
 
                 //viewModel.IsFollowing = _context.Followings
                 //    .Any(f => f.FolloweeId == gig.ArtistId && f.FollowerId == userId);
-                viewModel.IsFollowing = _followingRepository.GetFollowing(userId, gig.ArtistId) != null;
+                viewModel.IsFollowing = _unitOfWork.Followings.GetFollowing(userId, gig.ArtistId) != null;
 
             }
 
@@ -75,8 +69,10 @@ namespace GigHubMVC.Controllers
                 UpcomingGigs = _unitOfWork.Gigs.GetGigsUserAttending(userId),
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Gigs I 'm attending",
-                Attendances = _attendanceRepository.GetFutureAttendances(userId).ToLookup(a => a.GigId),
-                Followings = _followingRepository.GetFollowings(userId).ToLookup(a => a.FolloweeId)
+                Attendances = _unitOfWork.Attendances
+                .GetFutureAttendances(userId).ToLookup(a => a.GigId),
+                Followings = _unitOfWork.Followings
+                .GetFollowings(userId).ToLookup(a => a.FolloweeId)
             };
 
             return View("Gigs",viewModel);
@@ -94,7 +90,7 @@ namespace GigHubMVC.Controllers
         {
             var viewModel = new GigFormViewModel()
             {
-                Genres = _genreRepository.GetGenres(),
+                Genres = _unitOfWork.Genres.GetGenres(),
                 Heading = "Add a Gig"
             };
 
@@ -141,7 +137,7 @@ namespace GigHubMVC.Controllers
             {
                 Id = gig.Id,
                 Heading = "Edit a Gig",
-                Genres = _genreRepository.GetGenres(),
+                Genres = _unitOfWork.Genres.GetGenres(),
                 Date = gig.DateTime.ToString("d MMM yyyy"),
                 Time = gig.DateTime.ToString("HH:mm"),
                 Genre = gig.GenreId,
