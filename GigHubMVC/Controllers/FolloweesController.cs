@@ -1,4 +1,5 @@
 ﻿using GigHubMVC.Models;
+using GigHubMVC.Persistence;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,21 +11,18 @@ namespace GigHubMVC.Controllers
 {
     public class FolloweesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FolloweesController()
+        public FolloweesController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
         // GET: Followees
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
 
-            var artists = _context.Followings
-                .Where(f => f.FollowerId == userId)
-                .Select(f => f.Followee)
-                .ToList();
+            var artists = _unitOfWork.Users.GetArtistsFollowedBy(userId);
 
             // If I wanted the followers of  loggedin user.....
             //var followers = _context.Followings

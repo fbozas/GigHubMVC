@@ -9,6 +9,8 @@ namespace GigHubMVC.Persistence
         IGenreRepository Genres { get; }
         IGigRepository Gigs { get; }
 
+        IApplicationUserRepository Users { get; }
+
         void Complete();
     }
 }
